@@ -18,6 +18,8 @@ INIT_FILE=https://github.com/downloads/josedesoto/serverStreamLog/streamlogd.sh
 useradd -c "Stream Log User" --shell /bin/false streamlog
 
 #We install tonado
+apt-get install curl
+sleep 2
 curl http://python-distribute.org/distribute_setup.py | python
 sleep 2
 curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
