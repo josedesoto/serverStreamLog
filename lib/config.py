@@ -2,7 +2,7 @@
 import ConfigParser
 
 config = ConfigParser.RawConfigParser()
-config.read('./etc/streamlog.cfg')
+config.read('/etc/streamlog.cfg')
 
 class Config(object):
 
