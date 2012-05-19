@@ -16,9 +16,10 @@ The configuration is really easy. We only need to add logs in /etc/streamlog.cfg
 How to install in Linux:
 
 1- Download the script install.sh
-	#wget https://github.com/josedesoto/serverStreamLog/blob/master/scripts/install.sh
+	#wget https://github.com/downloads/josedesoto/serverStreamLog/install.sh
 	
 2- As a root user:
+	#chmod 755 install.sh
 	#./install.sh
 	
 3- Add some log in /etc/streamlog.cfg to create streaming

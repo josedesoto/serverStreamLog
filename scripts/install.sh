@@ -9,24 +9,26 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-LAST_SOURCE_CODE=https://github.com/josedesoto/serverStreamLog/blob/master/dist/ServerStreamLog-last.tar.gz
-CONFIG_FILE=https://github.com/josedesoto/serverStreamLog/blob/master/etc/streamlog.cfg
-INIT_FILE=https://github.com/josedesoto/serverStreamLog/blob/master/scripts/streamlogd
+LAST_SOURCE_CODE=https://github.com/downloads/josedesoto/serverStreamLog/ServerStreamLog-last.tar.gz
+CONFIG_FILE=https://github.com/downloads/josedesoto/serverStreamLog/streamlog.cfg
+INIT_FILE=https://github.com/downloads/josedesoto/serverStreamLog/streamlogd.sh
 
 
 #We create the user to streanm log
 useradd -c "Stream Log User" --shell /bin/false streamlog
 
 #We install tonado
-easy_install tornado
- 
+curl http://python-distribute.org/distribute_setup.py | python
+sleep 2
+curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
+sleep 2
+pip install tornado
+
 #We download the cource code
 cd /opt
 wget $LAST_SOURCE_CODE
 tar xzf ServerStreamLog-last.tar.gz
 ln -s ServerStreamLog-last ServerStreamLog
-
-
 
 #We download the config file
 
@@ -39,6 +41,7 @@ fi
 #We download the init.d script 
 cd /etc/init.d
 wget $INIT_FILE
+mv streamlogd.sh streamlogd
 chmod 755 streamlogd
 
 
