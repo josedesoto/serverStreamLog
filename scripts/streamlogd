@@ -16,7 +16,7 @@
 #NOTE: name script = Provides option
 NAME_APP="Stream Log"
 USER_RUN_COMMAND=streamlog
-COMMAN_TO_START=/opt/ServerStreamLog
+COMMAN_TO_START="/opt/ServerStreamLog/init.py &"
 COMMAN_TO_STOP=/opt/ed/atoz/current/script/batch-all-opcos.sh
 
 

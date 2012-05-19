@@ -9,7 +9,7 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-LAST_SOURCE_CODE=https://github.com/josedesoto/serverStreamLog/blob/master/dist/ServerStreamLog-last.tar.gz
+LAST_SOURCE_CODE=https://github.com/josedesoto/serverStreamLog/blob/master/dist/ServerStreamLog-1.0-alpha.tar.gz
 CONFIG_FILE=https://github.com/josedesoto/serverStreamLog/blob/master/etc/streamlog.cfg
 INIT_FILE=https://github.com/josedesoto/serverStreamLog/blob/master/scripts/streamlogd
 
@@ -23,9 +23,6 @@ easy_install tornado
 #We download the cource code
 cd /opt
 wget $LAST_SOURCE_CODE
-tar xzf ServerStreamLog-last.tar.gz
-ln -s ServerStreamLog-last ServerStreamLog
-
 
 
 #We download the config file
