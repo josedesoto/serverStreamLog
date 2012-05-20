@@ -18,7 +18,7 @@ INIT_FILE=https://github.com/downloads/josedesoto/serverStreamLog/streamlogd.sh
 useradd -c "Stream Log User" --shell /bin/false streamlog
 
 #We install tonado
-apt-get install curl
+apt-get -y install curl
 sleep 2
 curl http://python-distribute.org/distribute_setup.py | python
 sleep 2
@@ -31,6 +31,7 @@ cd /opt
 wget $LAST_SOURCE_CODE
 tar xzf ServerStreamLog-last.tar.gz
 ln -s ServerStreamLog-last ServerStreamLog
+chown -R streamlog:streamlog ServerStreamLog-last
 
 #We download the config file
 
@@ -45,5 +46,6 @@ cd /etc/init.d
 wget $INIT_FILE
 mv streamlogd.sh streamlogd
 chmod 755 streamlogd
+rm ServerStreamLog-last.tar.gz
 
 

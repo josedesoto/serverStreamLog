@@ -11,41 +11,62 @@
 # Short-Description:    To run the steam log app.
 ### END INIT INFO
 #By Jose de Soto
+#Script developed for Debian distributions. Tested in Debian 6
 
-#Paramaters we should changes.
-#NOTE: name script = Provides option
 NAME_APP="Stream Log"
 USER_RUN_COMMAND=streamlog
-COMMAN_TO_START="/opt/ServerStreamLog/init.py &"
-COMMAN_TO_STOP=/opt/ed/atoz/current/script/batch-all-opcos.sh
+COMMAN_TO_START="python /home/jose/workspace/ServerStreamLog/init.py"
+COMMAN_TO_STOP="we process with a kill"
 
-
+PID_FILE="/var/lock/streamLog.pid"
 
 case "$1" in
 start)
-	#We execute the command
-	su -s /bin/bash $USER_RUN_COMMAND -c "$COMMAN_TO_START"
-	if [ $? -eq 0 ] ; then
-		echo "$NAME_APP with status OK"
-	else
-		echo "There is a problem in $NAME_APP"
+
+	if ! test -e $PID_FILE
+	then
+		#We execute the command
+		cmd="`su -s /bin/bash $USER_RUN_COMMAND -c "$COMMAN_TO_START  > /dev/null 2>&1 &"`"
+		exec $cmd	
+		`expr $$ + 10 > $PID_FILE`
+
+		if [ $? -eq 0 ] ; then
+			echo "$NAME_APP with status OK"
+		else
+			echo "There is a problem in $NAME_APP"
 		
+		fi
+	else
+		PID=`cat $PID_FILE`
+		echo "Process running with PID: $PID"
+		echo "Please, check $PID_FILE"
 	fi
 
     ;;
 stop)
-     	su -s /bin/bash $USER_RUN_COMMAND -c "$COMMAN_TO_STOP"
-	if [ $? -eq 0 ] ; then
-		echo "$NAME_APP with status OK"
+	if test -e $PID_FILE
+	then
+		PID=`cat $PID_FILE`
+		if [ $PID != 0 ];
+		then
+			kill $PID
+			if [ $? -eq 0 ] ; then
+				rm $PID_FILE
+				echo "Terminated $NAME_APP with status OK"
+			else
+				echo "There is a problem in $NAME_APP"	
+			fi
+		fi
 	else
-		echo "There is a problem in $NAME_APP"	
+		echo "Can not stop. PID process not found"
+
 	fi
 
     ;;
 restart)
 	stop
-	sleep 3
-	start     	
+	sleep 2
+	start  	
 
     ;;
 

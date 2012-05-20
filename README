@@ -15,18 +15,19 @@ The configuration is really easy. We only need to add logs in /etc/streamlog.cfg
 
 How to install in Linux:
 
-1- Download the script install.sh
+1- As root user download the script install.sh
 	#wget https://github.com/downloads/josedesoto/serverStreamLog/install.sh
 	
-2- As a root user:
+2- Add exec permissions and execute:
 	#chmod 755 install.sh
 	#./install.sh
 	
-3- Add some log in /etc/streamlog.cfg to create streaming
+3- Add some logs in /etc/streamlog.cfg to create streaming
 	
 4- Start the service
 	#/etc/init.d/streamlogd
-		
+
+Note: The script will install some dependencies as curl, pip and tornado.
 		
 
 Install a client to read the logs:

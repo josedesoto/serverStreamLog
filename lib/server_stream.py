@@ -30,5 +30,7 @@ def serverStream():
     
 def clientStream(txt, group):
     ''' Prints received text '''
+    #Line with Java script
     #comet_send('http://localhost:'+str(PORT), 'oTable.fnAddData("'+str(txt).replace("\n", "")+'")', KEY_CLIENT , group)
+    #Line sending plain text
     comet_send('http://localhost:'+str(PORT), str(txt).replace("\n", ""), KEY_CLIENT , group)
