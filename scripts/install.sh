@@ -9,10 +9,9 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-LAST_SOURCE_CODE=https://github.com/downloads/josedesoto/serverStreamLog/ServerStreamLog-last.tar.gz
-CONFIG_FILE=https://github.com/downloads/josedesoto/serverStreamLog/streamlog.cfg
-INIT_FILE=https://github.com/downloads/josedesoto/serverStreamLog/streamlogd.sh
-
+PROJECT_GITHUB_NAME=serverStreamLog
+PROJECT_URL=https://github.com/josedesoto/serverStreamLog
+PATH_TO_INSTALL=/opt
 
 #We create the user to streanm log
 useradd -c "Stream Log User" --shell /bin/false streamlog
@@ -25,27 +24,32 @@ sleep 2
 curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
 sleep 2
 pip install tornado
+sleep 2
+apt-get  install git
 
 #We download the cource code
-cd /opt
-wget $LAST_SOURCE_CODE
-tar xzf ServerStreamLog-last.tar.gz
-ln -s ServerStreamLog-last ServerStreamLog
-chown -R streamlog:streamlog ServerStreamLog-last
+cd $PATH_TO_INSTALL
+git clone $PROJECT_URL
+chown -R streamlog:streamlog serverStreamLog
 
 #We download the config file
 
 if ! test -e /etc/streamlog.cfg
 then
-	cd /etc
-	wget $CONFIG_FILE
+	mv $PATH_TO_INSTALL/$PROJECT_GITHUB_NAME/etc/streamlog.cfg /etc/
+	rm -fr $PATH_TO_INSTALL/$PROJECT_GITHUB_NAME/etc
+else
+	echo "FOUND PREVIOUS /etc/streamlog.cfg. NOT OVERWRITE. UPDATE MANUALLY"
 fi
 
 #We download the init.d script 
-cd /etc/init.d
-wget $INIT_FILE
-mv streamlogd.sh streamlogd
-chmod 755 streamlogd
-rm ServerStreamLog-last.tar.gz
+mv $PATH_TO_INSTALL/$PROJECT_GITHUB_NAME/scripts/streamlogd.sh /etc/init.d/streamlogd
+chmod 755 /etc/init.d/streamlogd
+
+#Creating the log for debug:
+touch /var/log/streamlog.log
+chown streamlog:streamlog /var/log/streamlog.log
+
+
 
 
