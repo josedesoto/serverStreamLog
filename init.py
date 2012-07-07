@@ -21,6 +21,8 @@ import logging
 
 if __name__ == "__main__":
     #start()
+    
+    
     conf=Config()
     DELAY_TIME=conf.getClientDelay_time()
     LOGS=conf.getLogs()
@@ -30,16 +32,11 @@ if __name__ == "__main__":
                   'warning': logging.WARNING,
                   'info': logging.INFO,
                   'debug': logging.DEBUG}
-    
-    
+
     try:
         logging_level = LOGGING_LEVELS.get(conf.getServerLog_level(), logging.NOTSET)
         logging.basicConfig(filename=str(conf.getServerLog()), level=logging_level, format='%(asctime)s - %(levelname)s - %(message)s')
-        logging.critical('This is a critical message.')
-        logging.debug('This is a log message.')
-        logging.error('This is an error message.')
-        logging.warning('This is a warning message.')
-        logging.info('This is an informative message.')
+        logging.info("STARTING SERVER STREAM LOG...")
         
     except IOError as (errno, strerror):        
         logging.error("I/O error({0}): {1}".format(errno, strerror))
@@ -50,16 +47,21 @@ if __name__ == "__main__":
     try:
         #We start the clients
         for group, path in LOGS:
+         
                 logging.info("LOG: " + path + " readed from config file")
-                t = Tail(path, group)
-                t.register_callback(clientStream)
-                threading.Thread(target=t.follow, args=(DELAY_TIME,)).start()
-                
+                t = Tail(path, group, DELAY_TIME)
+                if t.check_file_validity():
+                    logging.info("TAIL LOAD FOR: " + path)
+                    t.register_callback(clientStream)
+                    threading.Thread(target=t.follow,).start()
+                    
         #Start the server!!!
         #threading.Thread(target=serverStream()).start()
         serverStream()
+        logging.info("SHUTING DOWN SERVER STREAM LOG...")
         
     except IOError as (errno, strerror):
         logging.error("I/O error({0}): {1}".format(errno, strerror))
+        exit(2);
         
             

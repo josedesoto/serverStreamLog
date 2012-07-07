@@ -49,6 +49,7 @@ class PostHandler(tornado.web.RequestHandler):
             message = self.request.arguments['message'][0]
             group = self.request.arguments.get('group',['default'])[0]
             logging.info('%s:MESSAGE to %s:%s' % (time.time(), group, message))
+           
             if hmac_key:
                 signature = self.request.arguments['signature'][0]
                 if not hmac.new(hmac_key,message).hexdigest()==signature: return 'false'
