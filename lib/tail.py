@@ -3,7 +3,7 @@
 
 
 import time, os, sys
-
+import logging
 
 class Tail(object):
     def __init__(self, tailed_file, group):
@@ -21,11 +21,15 @@ class Tail(object):
     def check_file_validity(self, file_):
         ''' Check whether the a given file exists, readable and is a file '''
         if not os.access(file_, os.F_OK):
-            raise TailError("File '%s' does not exist" % (file_))
+            logging.error("Log '%s' does not exist" % (file_))
+            #raise TailError("Log '%s' does not exist" % (file_))
+            
         if not os.access(file_, os.R_OK):
-            raise TailError("File '%s' not readable" % (file_))
+            logging.error("Log '%s' not readable" % (file_))
+            #raise TailError("Log '%s' not readable" % (file_))
         if os.path.isdir(file_):
-            raise TailError("File '%s' is a directory" % (file_))
+            logging.error("Log '%s' is a directory" % (file_))
+            #raise TailError("Log '%s' is a directory" % (file_))
 
     def follow(self, s):
         #Set the filename and open the file
@@ -53,9 +57,10 @@ class Tail(object):
 
  
         
-        
+'''        
 class TailError(Exception):
     def __init__(self, msg):
         self.message = msg
     def __str__(self):
         return self.messagev
+'''
