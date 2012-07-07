@@ -9,6 +9,12 @@ class Config(object):
     def getServerKey(self):   
         return config.get("server", "key")
     
+    def getServerLog(self):   
+        return str(config.get("server", "logging"))
+    
+    def getServerLog_level(self):   
+        return str(config.get("server", "logging_level"))
+    
     def getServerListen(self):   
         return str(config.get("server", "listen"))
     
