@@ -13,22 +13,22 @@
 #By Jose de Soto
 #Script developed for Debian distributions. Tested in Debian 6
 
+
 NAME_APP="Stream Log"
 USER_RUN_COMMAND=streamlog
-COMMAN_TO_START="python /home/jose/workspace/ServerStreamLog/init.py"
+COMMAN_TO_START="python /opt/ServerStreamLog/init.py"
 COMMAN_TO_STOP="we process with a kill"
 
-PID_FILE="/var/lock/streamLog.pid"
+PID_FILE="/var/run/streamLog.pid"
 
-case "$1" in
-start)
+start() {
 
 	if ! test -e $PID_FILE
 	then
 		#We execute the command
 		cmd="`su -s /bin/bash $USER_RUN_COMMAND -c "$COMMAN_TO_START  > /dev/null 2>&1 &"`"
 		exec $cmd	
-		`expr $$ + 10 > $PID_FILE`
+		`ps -o pid,command ax | grep "$COMMAN_TO_START" | awk '!/awk/ && !/grep/ {print $1}' | head -1 > $PID_FILE`
 
 		if [ $? -eq 0 ] ; then
 			echo "$NAME_APP with status OK"
@@ -42,8 +42,10 @@ start)
 		echo "Please, check $PID_FILE"
 	fi
 
-    ;;
-stop)
+}
+
+stop() {
+
 	if test -e $PID_FILE
 	then
 		PID=`cat $PID_FILE`
@@ -62,14 +64,23 @@ stop)
 
 	fi
 
+}
+
+
+
+case "$1" in
+start)
+	start
+    ;;
+stop)
+	stop
     ;;
 restart)
 	stop
 	sleep 2
 	start  	
-
     ;;
-
+	
 
 *)
     echo "usage: $0 (start|stop|restart)"
