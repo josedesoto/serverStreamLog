@@ -7,8 +7,9 @@ from   lib.server_stream import serverStream
 import threading
 from lib.tail import Tail
 from lib.config import Config
-
+#import signal
 import logging
+
 
 '''
 
@@ -17,6 +18,19 @@ import logging
     logger.warning('This is a warning message.')
     logger.info('This is an informative message.')
     logger.debug('This is a low-level debug message.')
+'''
+
+'''
+def stop(signum, frame):
+    print "ENDED SERVER STREAM LOG 1"
+    print str(signum)
+    exit(2)
+    print "ENDED SERVER STREAM LOG"
+    logging.info("ENDED SERVER STREAM LOG")
+    #exit(0);
+    #To do Some acction to close thread and Tornado Server
+
+signal.signal(signal.SIGINT, stop)
 '''
 
 if __name__ == "__main__":
@@ -53,12 +67,21 @@ if __name__ == "__main__":
                 if t.check_file_validity():
                     logging.info("TAIL LOAD FOR: " + path)
                     t.register_callback(clientStream)
-                    threading.Thread(target=t.follow,).start()
+                    tailThread=threading.Thread(name="tail "+ path,target=t.follow,)
+                    tailThread.deamon = True
+                    tailThread.start()
+                    
+                    
                     
         #Start the server!!!
-        #threading.Thread(target=serverStream()).start()
-        serverStream()
-        logging.info("SHUTING DOWN SERVER STREAM LOG...")
+        #serverStream()
+        tornadoThread=threading.Thread(name="tornado",target=serverStream,)
+        tornadoThread.deamon = True
+        tornadoThread.start()
+        logging.info("STARTED SERVER STREAM LOG...")
+        #print 'Press Ctrl+C'
+        #signal.pause()
+        #logging.info("SHUTING DOWN SERVER STREAM LOG...")
         
     except IOError as (errno, strerror):
         logging.error("I/O error({0}): {1}".format(errno, strerror))

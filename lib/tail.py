@@ -47,22 +47,25 @@ class Tail(object):
         inode=self.getInode()
         
         while 1:
-            new_inode=self.getInode()
-            if inode != new_inode:
-                logging.info("Log inode have change for " + self.tailed_file + " Reloading the File")
-                self.file.close()
-                self.file = open(self.tailed_file,'r')
-                inode=new_inode
-                
-            where = self.file.tell()
-            line = self.file.readline()
-            if not line:
-                time.sleep(self.delay_time)
-                self.file.seek(where)
+            if os.access(self.tailed_file, os.F_OK):
+                new_inode=self.getInode()
+                if inode != new_inode:
+                    logging.warning("Log inode have change for " + self.tailed_file + " Reloading the File")
+                    self.file.close()
+                    self.file = open(self.tailed_file,'r')
+                    inode=new_inode
+                    
+                where = self.file.tell()
+                line = self.file.readline()
+                if not line:
+                    time.sleep(self.delay_time)
+                    self.file.seek(where)
+                else:
+                    #print line, # already has newline
+                    self.callback(line, self.group)
             else:
-                #print line, # already has newline
-                self.callback(line, self.group)
-
+                logging.critical("Log " + self.tailed_file + " have been load, for any reason is not accessible anymore")
+                time.sleep(5)
 
     def register_callback(self, func):
         ''' Overrides default callback function to provided function. '''
