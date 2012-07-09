@@ -16,7 +16,7 @@
 
 NAME_APP="Stream Log"
 USER_RUN_COMMAND=streamlog
-COMMAN_TO_START="python /opt/ServerStreamLog/init.py"
+COMMAN_TO_START="python /opt/serverStreamLog/init.py"
 COMMAN_TO_STOP="we process with a kill"
 
 PID_FILE="/var/run/streamLog.pid"

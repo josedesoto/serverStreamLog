@@ -21,7 +21,7 @@ Note: The script will install some dependencies (curl, pip and tornado) and will
 to run the server without root permissions.
 
 1- As root user download the script install.sh
-	#wget https://github.com/downloads/josedesoto/serverStreamLog/install.sh
+	#wget https://raw.github.com/josedesoto/serverStreamLog/master/scripts/install.sh
 	
 2- Add exec permissions and execute:
 	#chmod 755 install.sh
@@ -30,7 +30,7 @@ to run the server without root permissions.
 3- Add some logs in /etc/streamlog.cfg to create streaming
 	
 4- Start the service
-	#/etc/init.d/streamlogd
+	#/etc/init.d/streamlogd start
 
 
 		
