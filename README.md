@@ -1,9 +1,11 @@
 Copyrighted by Jose de Soto <josedesoto@gmail.com>
+
 License: LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+
 Version: 1.2-alpha
 
 Description: 
-Simple stream log based in web2py code framework. The app use streaming Comet, this opens a single persistent connection from the client browser to the server 
+Stream log based in web2py code framework. The app use streaming Comet, this opens a single persistent connection from the client browser to the server 
 for all Comet events.
 
 The configuration is really easy. We only need to add logs in /etc/streamlog.cfg, for example:
@@ -13,6 +15,7 @@ The configuration is really easy. We only need to add logs in /etc/streamlog.cfg
 		apache-vhost-shop=/var/log/apache/shop-access.log
 
 Tested with Python 2.6 and 2.7
+
 Tested with Ubuntu 11.10 and Debian 6
 
 ## How to install in Linux:
