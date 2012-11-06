@@ -1,10 +1,4 @@
-Copyrighted by Jose de Soto <josedesoto@gmail.com>
-
-License: LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
-
-Version: 1.2-alpha
-
-Description: 
+## Description: 
 Stream log based in web2py code framework. The app use streaming Comet, this opens a single persistent connection from the client browser to the server 
 for all Comet events.
 
@@ -50,3 +44,11 @@ to run the server without root permissions.
 
 ## Based on:
 http://code.google.com/p/web2py/source/browse/gluon/contrib/comet_messaging.py
+
+"""
+Copyrighted by Jose de Soto <josedesoto@gmail.com>
+
+License: LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+
+Version: 1.2-alpha
+"""
