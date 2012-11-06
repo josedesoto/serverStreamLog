@@ -20,24 +20,32 @@ Tested with Ubuntu 11.10 and Debian 6
 Note: The script will install some dependencies (curl, pip and tornado) and will create a user named stramlog
 to run the server without root permissions.
 
-1- As root user download the script install.sh
-	$ wget https://raw.github.com/josedesoto/serverStreamLog/master/scripts/install.sh
+1- As root user download the script install.sh:
+
+	#wget https://raw.github.com/josedesoto/serverStreamLog/master/scripts/install.sh
 	
 2- Add exec permissions and execute:
-	$ chmod 755 install.sh
-	$ ./install.sh
+
+	#chmod 755 install.sh
+	#./install.sh
 	
 3- Add some logs in /etc/streamlog.cfg to create streaming
 	
-4- Start the service
-	$ /etc/init.d/streamlogd start
+4- Start the service:
+
+	#/etc/init.d/streamlogd start
 
 
 		
 
 Install a client to read the logs:
 
-Soon!!!!
+	https://github.com/josedesoto/clientStreamLog
+
+
+DEMO IN GAE:
+
+	http://streamlogs.appspot.com/streamlog
 
 
 Based in:
