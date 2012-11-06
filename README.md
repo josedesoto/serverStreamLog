@@ -35,15 +35,12 @@ to run the server without root permissions.
 
 	#/etc/init.d/streamlogd start
 
-
-		
-
 Install a client to read the logs:
 
 	https://github.com/josedesoto/clientStreamLog
 
 
-DEMO IN GAE:
+## DEMO IN GAE:
 
 	http://streamlogs.appspot.com/streamlog
 
