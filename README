@@ -15,22 +15,22 @@ The configuration is really easy. We only need to add logs in /etc/streamlog.cfg
 Tested with Python 2.6 and 2.7
 Tested with Ubuntu 11.10 and Debian 6
 
-How to install in Linux:
+## How to install in Linux:
 
 Note: The script will install some dependencies (curl, pip and tornado) and will create a user named stramlog
 to run the server without root permissions.
 
 1- As root user download the script install.sh
-	#wget https://raw.github.com/josedesoto/serverStreamLog/master/scripts/install.sh
+	$ wget https://raw.github.com/josedesoto/serverStreamLog/master/scripts/install.sh
 	
 2- Add exec permissions and execute:
-	#chmod 755 install.sh
-	#./install.sh
+	$ chmod 755 install.sh
+	$ ./install.sh
 	
 3- Add some logs in /etc/streamlog.cfg to create streaming
 	
 4- Start the service
-	#/etc/init.d/streamlogd start
+	$ /etc/init.d/streamlogd start
 
 
 		
